@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 import typeorm from './config/typeorm.config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -20,6 +22,10 @@ import typeorm from './config/typeorm.config';
     }),
     UsersModule,
     EventsModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      autoSchemaFile: true,
+      driver: ApolloDriver,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
