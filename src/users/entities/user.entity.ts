@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Event } from '../events/event.entity';
+import { Meetup } from '../../meetups/entities/meetup.entity';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { IsEmail } from 'class-validator';
 
@@ -51,7 +51,10 @@ export class User {
   })
   updatedAt: Date;
 
-  @ManyToMany(() => Event, (event) => event.users, { cascade: true })
+  @ManyToMany(() => Meetup, (meetup) => meetup.users, {
+    cascade: true,
+    nullable: true,
+  })
   @JoinTable()
-  events: Event[];
+  meetups: Meetup[];
 }

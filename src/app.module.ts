@@ -4,10 +4,10 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-import { EventsModule } from './events/events.module';
 import typeorm from './config/typeorm.config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { MeetupsModule } from './meetups/meetups.module';
 
 @Module({
   imports: [
@@ -20,12 +20,12 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
       useFactory: async (configService: ConfigService) =>
         configService.get('typeorm'),
     }),
-    UsersModule,
-    EventsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: true,
       driver: ApolloDriver,
     }),
+    UsersModule,
+    MeetupsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
