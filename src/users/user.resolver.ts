@@ -36,4 +36,12 @@ export class UserResolver {
   ): Promise<DeleteResult> {
     return await this.userService.remove(id);
   }
+
+  @Mutation(() => User)
+  async addUserToMeetup(
+    @Args('userId', { type: () => Int }) userId: number,
+    @Args('meetupId', { type: () => Int }) meetupId: number,
+  ): Promise<User> {
+    return await this.userService.addUserToMeetup(userId, meetupId);
+  }
 }
